@@ -20,11 +20,11 @@ import matplotlib.pyplot as plt
 from flask import Flask, jsonify, send_file, abort, render_template
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static/EDA')
 
 app = Flask(__name__)
 
-@app.route('/static/<path:filename>')
+@app.route('/static/EDA/<path:filename>')
 def custom_static(filename):
     return send_from_directory(STATIC_DIR, filename)
 
