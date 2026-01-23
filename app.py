@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.colors import Normalize
 from matplotlib.colorbar import ColorbarBase
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, send_from_directory
 import pandas as pd
 import numpy as np
 import io
@@ -19,7 +19,14 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from flask import Flask, jsonify, send_file, abort, render_template
 
-app = Flask(__name__, static_folder='static')
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+app = Flask(__name__)
+
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    return send_from_directory(STATIC_DIR, filename)
 
 # --- CONFIGURATION ---
 DATA_FOLDER = "./data_folder"
