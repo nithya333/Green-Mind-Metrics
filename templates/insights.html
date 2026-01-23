@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - Ecomind</title>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --primary: #4CAF50;
+            --accent: #FFC107;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAV HEADER --- */
+        .top-nav {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(18, 18, 18, 0.95);
+            border-bottom: 1px solid #333;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px; z-index: 1000; backdrop-filter: blur(10px);
+        }
+        .nav-brand { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-item { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: 0.3s; }
+        .nav-item:hover, .nav-item.active { color: #fff; border-bottom: 2px solid var(--primary); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 80vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at center, #222 0%, #000 100%);
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem; margin: 0;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: fadeUp 1s ease-out forwards;
+        }
+
+        /* --- LAYOUT STYLES --- */
+        .story-section {
+            padding: 80px 5%;
+            display: flex; 
+            align-items: flex-start; 
+            justify-content: space-between; 
+            gap: 40px;
+            min-height: 70vh; 
+            border-bottom: 1px solid #222;
+        }
+        .story-section.alt { flex-direction: row-reverse; background-color: #161616; }
+
+        /* Narrative Side (30%) */
+        .story-content { 
+            flex: 0.35; 
+            min-width: 300px;
+            opacity: 0; transform: translateY(40px); transition: 0.8s ease; 
+            position: sticky; top: 100px; 
+        }
+        
+        /* Visual Side (70%) */
+        .story-visual { 
+            flex: 0.65; 
+            opacity: 0; transform: scale(0.95); transition: 0.8s ease; 
+        }
+
+        /* Reveal Animation State */
+        .visible .story-content { opacity: 1; transform: translateY(0); }
+        .visible .story-visual { opacity: 1; transform: scale(1); }
+
+        .story-tag { text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; display: block; margin-bottom: 10px; font-size: 0.85rem; }
+        .story-title { font-size: 2rem; font-weight: 700; margin-bottom: 15px; line-height: 1.1; }
+        .story-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+
+        .insight-box {
+            background: rgba(76, 175, 80, 0.1); border-left: 3px solid var(--primary);
+            padding: 15px; border-radius: 0 6px 6px 0;
+        }
+        .insight-text { font-size: 0.95rem; color: #fff; font-style: italic; font-weight: 500; }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: #252525;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-color: var(--primary);
+        }
+
+        .gallery-img-box {
+            width: 100%; height: 250px; 
+            background: #000;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        
+        .gallery-img-box img {
+            width: 100%; height: 100%; object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        .gallery-caption { padding: 15px; background: #1e1e1e; border-top: 1px solid #333; }
+        .caption-title { font-weight: 700; color: #fff; font-size: 0.9rem; margin-bottom: 4px; display: block; }
+        .caption-desc { font-size: 0.8rem; color: #aaa; margin: 0; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        
+        .top-nav {
+            position: fixed; /* Sticks to the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #000000; /* Slightly darker than page bg for contrast */
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000; /* Ensures it stays on top of maps/panels */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background-color: #222;
+        }
+
+        /* Style for the currently selected page */
+        .nav-item.active {
+            color: #fff;
+            background-color: #333; /* Or your brand color like #008000 (Green) */
+            border: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <div class="nav-brand"><h1 class="text-xl font-bold text-green tracking-widest">ECO<span class="text-green-500">MIND</span></h1></div> <nav class="nav-links">
+            <a href="/" class="nav-item">Geospatial Data</a>
+            <a href="/psychometric" class="nav-item">Psychometric Data</a>
+            <a href="/insights" class="nav-item active">Insights</a>
+            <a href="/leaderboard" class="nav-item">Leaderboard</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Visualizing The Impact</h1>
+        <p style="color:#aaa; margin-top:10px;">Exploring the connection between Campus Greenery & Student Mindset.</p>
+    </section>
+
+        <section class="story-section scroll-reveal" x-data>
+        
+        <div class="story-content">
+            <span class="story-tag">Campus Environmental Footprint</span>
+
+            <h2 class="story-title">From Satellite to Street: How Campus Landscapes Shape Student Experience</h2>
+
+            <p class="story-desc">
+                Multi-source geospatial indicators reveal clear environmental contrasts across campuses. Vegetation indices (NDVI, GNDVI, NDWI) consistently separate greener institutions from more built-up ones, while urban signatures (NDBI, night lights, density, built area and height) cluster with higher pollution exposure such as NO₂ and PM2.5. Land-use ratios show most campuses remain crop or tree dominant, yet a subset exhibits heavier concrete footprints and stronger urban intensity. Importantly, perceived greenness aligns closely with satellite-derived vegetation metrics, confirming that what students visually experience matches measurable ecological quality—linking greener landscapes with healthier, less urbanized environments.
+            </p>
+
+            <div class="insight-box">
+                <span class="insight-text">
+                    "Higher satellite greenness matches both cleaner air and greener perception."
+                </span>
+            </div>
+        </div>
+
+        <div class="story-visual">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Geospatial Analysis/1_sentinel.png" alt="Mood Distribution">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Sentinel Environmental Indices by College</span>
+                        <p class="caption-desc">Colleges show strong variation in vegetation, built-up, and water indices, clearly separating greener campuses (higher NDVI/NDWI) from more urban/built campuses (higher NDBI/NDBSI).</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Geospatial Analysis/2_lulc.png" alt="Factors">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Land Use/Land Cover (LULC) Ratios by College</span>
+                        <p class="caption-desc">Most campuses are crop/green-dominant with smaller built-up fractions, while a few institutions stand out with higher urban or tree cover mixes, highlighting diverse campus landscapes.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Geospatial Analysis/perceived vs reality.png" alt="Factors">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Visual Greenness vs NDVI/GNDVI/NBR</span>
+                        <p class="caption-desc">Perceived visual greenness rises consistently with NDVI, GNDVI, and NBR, showing that higher user-rated greenery closely matches objectively greener satellite indices.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Geospatial Analysis/3_socio_urban.png" alt="Factors">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Socio-Urban & Pollution Metrics by College</span>
+                        <p class="caption-desc">Urbanization indicators (night lights, density, built area/height) and pollutants (NO₂, PM2.5) cluster together, showing that more urbanized campuses tend to have higher activity and exposure levels compared to less dense ones.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="story-section alt scroll-reveal" x-data>
+        
+        <div class="story-content">
+        <span class="story-tag">Mood Analysis</span>
+        <h2 class="story-title">Green Campuses, Happier Minds</h2>
+        <p class="story-desc">
+            Mood trends across colleges consistently reflect the influence of campus environment and daily exposure patterns rather than demographics alone. While gender differences remain minimal, factors such as time spent outdoors, access to greenery, and the type of campus spaces students use play a much stronger role in shaping emotional well-being. Campuses with greener landscapes and active open areas show noticeably higher and more stable mood distributions, whereas pollution and academic or financial pressures correspond with dips in overall happiness.
+        </p>
+        <div class="insight-box">
+            <span class="insight-text">
+                "Across colleges, average mood shifts upward from moderate (~6–7) to clearly positive (~8–9) when students spend more time in green/open areas, engage with sports grounds, or prefer open-air settings;     satellite greenness (NDVI/GNDVI) aligns with these gains, while higher PM2.5, heavy workload, and financial stress show the most consistent downward pull—highlighting that everyday environmental exposure acts as a quiet but powerful buffer for student well-being."
+            </span>
+        </div>
+    </div>
+
+        <div class="story-visual">
+            <div class="gallery-grid">
+                
+                <div class="story-content">
+                    <span class="story-tag">Campus Environmental Footprint</span>
+
+                    <h2 class="story-title">From Satellite to Street: How Campus Landscapes Shape Student Experience</h2>
+
+                    <p class="story-desc">
+                        Multi-source geospatial indicators reveal clear environmental contrasts across campuses. Vegetation indices (NDVI, GNDVI, NDWI) consistently separate greener institutions from more built-up ones, while urban signatures (NDBI, night lights, density, built area and height) cluster with higher pollution exposure such as NO₂ and PM2.5. Land-use ratios show most campuses remain crop or tree dominant, yet a subset exhibits heavier concrete footprints and stronger urban intensity. Importantly, perceived greenness aligns closely with satellite-derived vegetation metrics, confirming that what students visually experience matches measurable ecological quality—linking greener landscapes with healthier, less urbanized environments.
+                    </p>
+
+                    <div class="insight-box">
+                        <span class="insight-text">
+                            "Higher satellite greenness matches both cleaner air and greener perception."
+                        </span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Focus Analysis/1_focus_per_mood.png" alt="Mood by Gender & Residence">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Focus Improvement by Mood Level</span>
+                        <p class="caption-desc">Focus improvement rises sharply with mood, peaking at ~85–87% for above-average and high mood groups, showing better mood strongly enhances concentration.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/3_mood_urban.png" alt="Mood by Urban Class">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood by Urban Classification</span>
+                        <p class="caption-desc">Urban and rural students report higher, steadier moods, whereas suburban students show the widest variability and lower medians.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/4_mood_timespent.png" alt="Mood vs Green Time">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood vs Time Spent in Green Areas</span>
+                        <p class="caption-desc">More time in green/open spaces strongly correlates with higher mood—ratings steadily climb as exposure increases.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/5_mood_factors.png" alt="Mood Factors">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood by Contributing Factors</span>
+                        <p class="caption-desc">Social interaction, good weather, and physical health lift mood most, while heavy workload and financial stress drag it down.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/6_mood_campus_ares.png" alt="Mood by Campus Area">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood by Campus Area Exposure</span>
+                        <p class="caption-desc">Using sports grounds and green/open areas links to higher moods, whereas library/academic block use shows neutral or slightly lower mood.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/7_mood_open-air_class_pref.png" alt="Open Air Class Pref">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood by Open-Air Class Preference</span>
+                        <p class="caption-desc">Students who favor open-air classes (frequently/occasionally) report higher moods than those who rarely or never prefer them.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Analysis/8_mood_params.png" alt="Mood Parameters">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood vs Environmental Parameters</span>
+                        <p class="caption-desc">Greener surroundings (higher NDVI/GNDVI) slightly boost mood, pollution (PM2.5) lowers it most clearly, while temperature (LST) and NO₂ show weak effects.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="story-section scroll-reveal" x-data>
+        
+        <div class="story-content">
+            <span class="story-tag">Stress Analysis</span>
+            <h2 class="story-title">Greener Spaces, Lighter Minds</h2>
+            <p class="story-desc">
+                Stress patterns across colleges reveal strong links to environment, lifestyle, and campus design. While gender differences remain small, hostel students and highly urban settings show slightly higher and more variable stress levels. Time spent in green/open spaces consistently reduces stress, with distributions tightening and medians dropping as outdoor exposure increases. Social interaction, good weather, and physical health act as buffers, whereas workload, academics, and financial pressures elevate stress. Campus spaces also matter—sports grounds and green areas correspond with lower stress, while academic blocks and indoor-heavy zones trend higher. Environmental indicators reinforce this pattern, showing stress rising with built-up intensity and falling with cleaner, greener surroundings.
+            </p>
+            <div class="insight-box">
+                <span class="insight-text">
+                    "More greenery and outdoor time consistently lower stress, while workload and urban intensity push it higher."
+                </span>
+            </div>
+        </div>
+        
+
+        <div class="story-visual">
+            <div class="gallery-grid">
+                
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/1_stress_avg_distr.png" alt="Stress Boxplot">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Average Stress by College</span>
+                        <p class="caption-desc">Stress varies sharply across colleges (≈2-9), with a few campuses experiencing consistently high stress while others remain notably low.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/2_stress_distr.png" alt="Survey Response">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Stress by Gender & Residence Type</span>
+                        <p class="caption-desc">Male and hostel/on-campus students show marginally higher and more dispersed stress compared to female and day scholars.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/7_stress_open_air-classes.png" alt="Survey Response">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Stress Distribution by Open-Air Class Preference</span>
+                        <p class="caption-desc">Students who frequently/occasionally prefer open-air classes report slightly lower stress, while rarely/never groups show higher or more variable stress.
+                        </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/4_stress_timespent.png" alt="Survey Response">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Stress vs Time Spent in Green Areas</span>
+                        <p class="caption-desc">More hours spent in green spaces generally associate with lower median stress, suggesting nature exposure buffers stress.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/5_stress_contri_factors.png" alt="Survey Response">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Stress by Contributing Factors</span>
+                        <p class="caption-desc">Workload, academics/career pressure, and financial strain elevate stress most, while positive environment, weather, and health correspond to lower stress.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Stress Analysis/6_stress_campus_areas.png" alt="Survey Response">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Stress by Campus Area Exposure</span>
+                        <p class="caption-desc">Using sports grounds and green/open areas links to reduced stress, whereas heavy academic block and cafeteria use aligns with slightly higher stress.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="story-section alt scroll-reveal" x-data>
+        
+        <div class="story-content">
+            <span class="story-tag">Holistic Analysis</span>
+            <h2 class="story-title">The Well-being Triad</h2>
+            <p class="story-desc">
+                We mapped the cascading effect of the environment on the student psyche. The data reveals a clear chain reaction: better greenery improves mood, higher mood acts as a buffer against stress, and reduced stress unlocks superior academic focus.
+            </p>
+            <div class="insight-box">
+                <span class="insight-text">
+                    "Green campuses exhibit a distinct 'Well-being Advantage': they cluster at higher mood ratings and lower stress levels, proving that environmental design is a foundational pillar of student mental health."
+                </span>
+            </div>
+        </div>
+
+        <div class="story-visual">
+            <div class="gallery-grid">
+                
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/1_mood_stress_college_wise.png" alt="Mood vs Stress Trend">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood vs Stress Trend by College</span>
+                        <p class="caption-desc">Across colleges, higher mood generally aligns with lower stress, showing a healthy inverse relationship between well-being and pressure.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/2_mood_vs_stress_regression.png" alt="Regression Analysis">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Mood vs Stress Regression</span>
+                        <p class="caption-desc">There is a clear negative relationship—stress decreases as mood increases, indicating better emotional states associate with lower stress.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/3_greenery_impact.png" alt="Greenery Impact">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Impact of Campus Greenery</span>
+                        <p class="caption-desc">Better greenery maintenance and higher green–concrete ratios steadily raise mood and reduce stress.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/4_well_being.png" alt="Well-being Comparison">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Well-being: Green vs Non-Green</span>
+                        <p class="caption-desc">Green campuses show higher average mood and noticeably lower stress than non-green campuses.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/5_green_nongreen_rating analysis.png" alt="Campus Type Distribution">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Distribution by Campus Type</span>
+                        <p class="caption-desc">Green campuses cluster at higher mood ratings and moderate stress, while non-green campuses show more low-mood and higher-stress responses.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/6_green_nongreen_per_clg.png" alt="Metric Breakdown">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Metric Breakdown by College</span>
+                        <p class="caption-desc">Most green campuses consistently exhibit higher mood and lower stress per college, whereas non-green campuses display wider variability and more stress-heavy profiles.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-box">
+                        <img src="/static/Essence/Mood_Stress_Combined/7_stress_mood_focus_analysis.png" alt="Focus Analysis">
+                    </div>
+                    <div class="gallery-caption">
+                        <span class="caption-title">Green Areas, Stress & Focus</span>
+                        <p class="caption-desc">Exposure to green areas reduces stress and boosts focus across all mood levels, with the strongest benefits seen among average-to-high mood students.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; border-top: 1px solid #333; color: #666;">
+        <p>&copy; 2026 EcoMind Project. Helping campuses breathe.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>

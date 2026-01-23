@@ -337,6 +337,14 @@ def psychometric():
 def leaderboard():
     return send_file('./templates/leaderboard.html')
 
+@app.route('/insights')
+def insights():
+    return send_file('./templates/insights.html')
+
+@app.route('/prod_pitch')
+def prod_pitch():
+    return send_file('./templates/prod_pitch.html')
+
 @app.route('/api/config')
 def get_config():
     """Send the Metric Groups to Frontend"""

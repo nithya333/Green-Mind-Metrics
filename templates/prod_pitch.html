@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Pitch - Ecomind</title>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --primary: #4CAF50;
+            --accent: #FFC107;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAV HEADER (Consistent) --- */
+        .top-nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background-color: #000; border-bottom: 1px solid #333;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 30px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+
+        .nav-brand h1 { margin: 0; font-size: 18px; }
+        .text-green { color: var(--primary); }
+        .text-green-500 { color: #81c784; }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-item {
+            text-decoration: none; color: #888; font-size: 14px; padding: 8px 16px;
+            border-radius: 4px; transition: all 0.2s ease; font-weight: 500;
+        }
+        .nav-item:hover { color: #fff; background-color: #222; }
+        .nav-item.active { color: #fff; background-color: #333; border: 1px solid #444; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 85vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
+            padding: 20px; position: relative;
+        }
+        .hero h1 {
+            font-size: 4rem; margin: 0;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: fadeUp 1s ease-out forwards;
+        }
+        .hero p {
+            font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin-top: 20px;
+            opacity: 0; animation: fadeUp 1s ease-out 0.3s forwards;
+        }
+        .cta-button {
+            margin-top: 40px; padding: 15px 40px; background: var(--primary); color: #000;
+            font-weight: 700; border-radius: 30px; text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0; animation: fadeUp 1s ease-out 0.6s forwards;
+        }
+        .cta-button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4); }
+
+        /* --- SECTIONS --- */
+        .pitch-section { padding: 100px 10%; min-height: 60vh; display: flex; align-items: center; gap: 60px; }
+        .pitch-section.alt { flex-direction: row-reverse; background: #161616; }
+        
+        .content-box { flex: 1; opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .visual-box { flex: 1; display: flex; justify-content: center; opacity: 0; transform: scale(0.9); transition: 0.8s ease; }
+        
+        .visible .content-box { opacity: 1; transform: translateY(0); }
+        .visible .visual-box { opacity: 1; transform: scale(1); }
+
+        .section-tag { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+        .section-title { font-size: 2.5rem; font-weight: 700; margin: 10px 0 20px; line-height: 1.2; }
+        
+        /* FEATURE CARDS */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+            padding: 80px 10%; background: #121212;
+        }
+        .feature-card {
+            background: #1e1e1e; padding: 30px; border-radius: 12px; border: 1px solid #333;
+            transition: transform 0.3s; text-align: center;
+        }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .feature-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .feature-head { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+        .feature-desc { font-size: 0.9rem; color: #aaa; line-height: 1.6; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- STATS BAR --- */
+        .impact-bar {
+            display: flex; justify-content: space-around; padding: 60px 10%;
+            background: linear-gradient(90deg, #1e1e1e, #252525); border-top: 1px solid #333;
+        }
+        .impact-item { text-align: center; }
+        .impact-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; }
+        .impact-label { color: #aaa; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <div class="nav-brand"><h1 class="text-xl font-bold text-white tracking-widest">ECO<span class="text-green-500">MIND</span></h1></div> <nav class="nav-links">
+            <a href="/" class="nav-item">Geospatial Data</a>
+            <a href="/psychometric" class="nav-item active">Psychometric Data</a>
+            <a href="/insights" class="nav-item">Insights</a>
+            <a href="/leaderboard" class="nav-item">Leaderboard</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Ecomind</h1>
+        <p>The first AI-driven "Green Audit" platform for Indian Educational Campuses.<br>We turn environmental data into student well-being.</p>
+        <a href="#problem" class="cta-button">Explore The Vision</a>
+    </section>
+
+    <section id="problem" class="pitch-section scroll-reveal">
+        <div class="content-box">
+            <span class="section-tag">The Problem</span>
+            <h2 class="section-title">Campuses are Growing Grey, not Green.</h2>
+            <p style="color: #aaa; line-height: 1.8;">
+                Rapid urbanization has turned educational campuses into concrete jungles. Administrators track electricity and water, but 
+                <strong>no one tracks the "Psychological Green Score"</strong>.
+            </p>
+            <ul style="color: #ccc; margin-top: 20px; line-height: 2;">
+                <li>❌ <strong>Invisible Impact:</strong> Colleges don't know <em>where</em> stress hotspots exist.</li>
+                <li>❌ <strong>Wasted Resources:</strong> Greenery is planted for aesthetics, not mental health.</li>
+                <li>❌ <strong>Data Gap:</strong> No correlation exists between satellite data and student mood.</li>
+            </ul>
+        </div>
+        <div class="visual-box">
+            <div style="width: 100%; height: 300px; background: #222; border: 1px dashed #555; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+                <span style="font-size: 4rem;">📉</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="pitch-section alt scroll-reveal">
+        <div class="content-box">
+            <span class="section-tag">The Solution</span>
+            <h2 class="section-title">The "EcoMind" Dashboard</h2>
+            <p style="color: #aaa; line-height: 1.8;">
+                A unified platform that fuses <strong>Satellite Imagery (Sentinel-2)</strong> with <strong>Hyper-local Student Feedback</strong>. We create a live "Green Health Score" for every zone on campus.
+            </p>
+            <p style="color: #fff; border-left: 4px solid var(--primary); padding-left: 15px; margin-top: 20px;">
+                "We don't just tell you to plant trees. We tell you <strong>where</strong> to plant them to maximize student focus and minimize cortisol."
+            </p>
+        </div>
+        <div class="visual-box">
+            <div style="width: 100%; height: 300px; background: #222; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);">
+                <span style="font-size: 4rem;">💻 + 🛰️</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-grid scroll-reveal">
+        <div class="feature-card">
+            <span class="feature-icon">🛰️</span>
+            <div class="feature-head">Geo-Spatial Audit</div>
+            <div class="feature-desc">Automated NDVI, LST, and Pollution tracking using Sentinel-2 satellite APIs. No sensors needed.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🧠</span>
+            <div class="feature-head">Psycho-Metric Overlay</div>
+            <div class="feature-desc">Real-time heatmaps of student stress & focus levels mapped directly onto campus coordinates.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <div class="feature-head">SustainScore™</div>
+            <div class="feature-desc">A unified 0-100 ranking metric for colleges to benchmark their "Green Well-being" status.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">💡</span>
+            <div class="feature-head">Actionable Insights</div>
+            <div class="feature-desc">AI recommendations: "Zone B has high stress & low shade. Plant vertical gardens here."</div>
+        </div>
+    </section>
+
+    <section class="impact-bar scroll-reveal">
+        <div class="impact-item">
+            <span class="impact-num">32%</span>
+            <span class="impact-label">Drop in Stress Variance</span>
+        </div>
+        <div class="impact-item">
+            <span class="impact-num">80%</span>
+            <span class="impact-label">Focus Improvement</span>
+        </div>
+        <div class="impact-item">
+            <span class="impact-num">Scalable</span>
+            <span class="impact-label">To Any Campus in India</span>
+        </div>
+    </section>
+
+    <section class="pitch-section scroll-reveal" style="text-align: center; display: block;">
+        <span class="section-tag">The Vision</span>
+        <h2 class="section-title">From Campus to City</h2>
+        <p style="color: #aaa; max-width: 600px; margin: 0 auto 40px;">
+            Ecomind starts with colleges, but the model scales to IT Parks, Residential Townships, and Smart Cities. 
+            We are building the standard for <strong>Psychological Urban Planning</strong>.
+        </p>
+        <a href="#" class="cta-button">Partner With Us</a>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; border-top: 1px solid #333; color: #666;">
+        <p>&copy; 2026 Ecomind Project. Helping campuses breathe.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>
