@@ -257,6 +257,35 @@
             z-index: 1000; /* Ensures it stays on top of maps/panels */
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
+        .map-container {
+            width: 100%;
+            height: 600px; /* Crucial: Maps will collapse to 0 height without this */
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px; /* Space before the next section */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .panel-header {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        iframe {
+            width: 100%;
+            flex-grow: 1; /* Fills the rest of the container height */
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -280,10 +309,12 @@
                 <div class="q-text">Which college/university do you study in?</div>
                 <span class="q-type">Text Input</span>
             </div>
-            <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/demo_college.png" alt="College Distribution"></div>
-            </div>
+        <div id="iframe-container">
+            <iframe src="static/EDA/india_colleges_map.html" width="100%" height="700px">
+                Your browser does not support iframes.
+            </iframe>
         </div>
+
 
         <div class="question-card">
             <div class="q-header">
@@ -299,40 +330,38 @@
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/demo_gender.png" alt="Gender Distribution"></div>
+                <div class="eda-img-container"><img src="static/EDA/1_gender.png" width="500px" alt="Gender Distribution"></div>
             </div>
         </div>
 
         <div class="question-card">
             <div class="q-header">
-                <div class="q-text">What is your current study status?</div>
+                <div class="q-text">WWhat is your residence type?</div>
                 <span class="q-type">Choice</span>
             </div>
             <div class="options-box">
                 <div class="options-tags">
-                    <span class="tag">Undergraduate</span>
-                    <span class="tag">Postgraduate</span>
-                    <span class="tag">Research Scholar</span>
+                    <span class="tag">Hosteller/on-campus</span>
+                    <span class="tag">Day scholar/off-campus</span>
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/demo_status.png" alt="Study Status"></div>
+                <div class="eda-img-container"><img src="/static/EDA/1_residence.png" width="500px" alt="Study Status"></div>
             </div>
         </div>
     </div>
 
     <div class="survey-section">
-        <div class="section-title">🧠🌿 Your Mood, Stress & Focus</div>
+        <div class="section-title">🧠🌿 Students' Mood, Stress & Focus</div>
         <div class="section-desc">Reflecting on overall feelings and what factors affect well-being most.</div>
 
         <div class="question-card">
             <div class="q-header">
                 <div class="q-text">How would you rate your overall mood generally?</div>
-                <span class="q-type">Scale 1-10</span>
+                <span class="q-type">Scale (Very negative) 1-10 (Very positive)</span>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/mood_rating_hist.png" alt="Mood Rating Histogram"></div>
-                <div class="eda-img-container"><img src="EDA/mood_rating_box.png" alt="Mood Rating Boxplot"></div>
+                <div class="eda-img-container"><img src="static/EDA/2_mood_indivi_college.png" alt="Mood Rating"></div>
             </div>
         </div>
 
@@ -353,13 +382,23 @@
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/mood_factors.png" alt="Mood Factors"></div>
+                <div class="eda-img-container"><img src="static/EDA/3_correlation_bw_mood_factors.png" width="500px" alt="Mood Factors"></div>
+            </div>
+        </div>
+
+                <div class="question-card">
+            <div class="q-header">
+                <div class="q-text">How would you describe your average stress level?</div>
+                <span class="q-type">Scale (Very rarely) 1-10 (Always stressed)</span>
+            </div>
+            <div class="eda-grid">
+                <div class="eda-img-container"><img src="static/EDA/4_stress_indivi_college.png" alt="Mood Rating"></div>
             </div>
         </div>
 
         <div class="question-card">
             <div class="q-header">
-                <div class="q-text">When you spend time in green areas, how does your stress level change?</div>
+                <div class="q-text">When you spend time in green areas, how does your stress level, mood and focus change?</div>
                 <span class="q-type">Impact</span>
             </div>
             <div class="options-box">
@@ -371,7 +410,11 @@
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/green_stress_impact.png" alt="Green Area Stress Impact"></div>
+                <div class="eda-img-container"><img src="static/EDA/6_change_after_green_walk.png" alt="Green Area Stress Impact"></div>
+            </div>
+            <div class="eda-grid">
+                <div class="eda-img-container"><img src="static/EDA/7_correlation_bw_stress_focus_refresh.png" width="400px" alt="Green Area Stress Impact"></div>
+                <div class="eda-img-container"><img src="static/EDA/8_correlation_bw_pos_to_neg.png" width="400px" alt="Green Area Stress Impact"></div>
             </div>
         </div>
 
@@ -381,33 +424,33 @@
                 <span class="q-type">Impact</span>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/green_focus_impact.png" alt="Focus Impact"></div>
+                <div class="eda-img-container"><img src="static/EDA/5_focus_indivi_college.png" alt="Focus Impact"></div>
             </div>
         </div>
     </div>
 
     <div class="survey-section">
-        <div class="section-title">🌿 Your Campus & Green Spaces</div>
+        <div class="section-title">🌿 Campus & Green Spaces</div>
         <div class="section-desc">Exploring how you move through and spend time in green vs built spaces.</div>
 
         <div class="question-card">
             <div class="q-header">
                 <div class="q-text">How visually green do you consider your campus?</div>
-                <span class="q-type">Scale 1-10</span>
+                <span class="q-type">Scale 1-10 (Greenery Everywhere!)</span>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/campus_visual_green.png" alt="Visual Greenery Rating"></div>
+                <div class="eda-img-container"><img src="static/EDA/9_perceived_greenery_vs_maintainance.png" width="400px" alt="Visual Greenery Rating"></div>
+                <div class="eda-img-container"><img src="static/EDA/14_green.png" width="500px" alt="Visual Greenery Rating"></div>
             </div>
         </div>
 
         <div class="question-card">
             <div class="q-header">
-                <div class="q-text">Time spent in Green Areas vs Built Areas</div>
-                <span class="q-type">Comparison</span>
-            </div>
+                <div class="q-text">On a typical day, how much of your total time on campus do you spend in open green areas?</div>
+                <span class="q-type">Scale 1-10 (All of the time)</span>
+            </div>  
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/time_green_areas.png" alt="Time in Green Areas"></div>
-                <div class="eda-img-container"><img src="EDA/time_built_areas.png" alt="Time in Built Areas"></div>
+                <div class="eda-img-container"><img src="static/EDA/10_time_spent_open_green_areas.png" alt="Time in Green Areas"></div>
             </div>
         </div>
 
@@ -426,7 +469,16 @@
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/frequent_spots.png" alt="Frequent Spots"></div>
+                <div class="eda-img-container"><img src="static/EDA/11_frequent_campus_areas.png" width = "500px" alt="Frequent Spots"></div>
+            </div>
+        </div>
+                <div class="question-card">
+            <div class="q-header">
+                <div class="q-text">How would you rate the maintenance of greenery around your frequent spaces?</div>
+                <span class="q-type">Excellent, Good, Average, Poor</span>
+            </div>
+            <div class="eda-grid">
+                <div class="eda-img-container"><img src="static/EDA/9_perceived_greenery_vs_maintainance.png" width="400px" alt="Visual Greenery Rating"></div>
             </div>
         </div>
     </div>
@@ -437,11 +489,13 @@
 
         <div class="question-card">
             <div class="q-header">
+                <div class="q-text">Would you support open-air or garden-based classes for certain subjects?</div>
+                <span class="q-type">Opinion</span>
                 <div class="q-text">Do you think adding more green spaces would improve student well-being?</div>
                 <span class="q-type">Opinion</span>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/opinion_more_green.png" alt="Opinion on More Green"></div>
+                <div class="eda-img-container"><img src="static/EDA/13_open_air_class_and_greenspace_addition.png" alt="Opinion on More Green"></div>
             </div>
         </div>
 
@@ -460,7 +514,7 @@
                 </div>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/priority_areas.png" alt="Priority Areas"></div>
+                <div class="eda-img-container"><img src="static/EDA/12_preferred_loc.png" width="400px" alt="Priority Areas"></div>
             </div>
         </div>
 
@@ -470,7 +524,7 @@
                 <span class="q-type">Prediction</span>
             </div>
             <div class="eda-grid">
-                <div class="eda-img-container"><img src="EDA/impact_prediction.png" alt="Impact Prediction"></div>
+                <div class="eda-img-container"><img src="static/EDA/14_ration_increase.png" width="400px" alt="Impact Prediction"></div>
             </div>
         </div>
     </div>
