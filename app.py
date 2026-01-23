@@ -19,7 +19,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from flask import Flask, jsonify, send_file, abort, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # --- CONFIGURATION ---
 DATA_FOLDER = "./data_folder"
