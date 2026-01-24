@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Pitch - Ecomind</title>
-    
+    <title>Product Pitch - GreenScore App</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-dark: #121212;
@@ -19,7 +19,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
@@ -27,199 +27,581 @@
             overflow-x: hidden;
         }
 
-        /* --- NAV HEADER (Consistent) --- */
+        /* NAV HEADER */
         .top-nav {
-            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
-            background-color: #000; border-bottom: 1px solid #333;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 30px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #000;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             box-sizing: border-box;
         }
 
-        .nav-brand h1 { margin: 0; font-size: 18px; }
-        .text-green { color: var(--primary); }
-        .text-green-500 { color: #81c784; }
-
-        .nav-links { display: flex; gap: 20px; }
-        .nav-item {
-            text-decoration: none; color: #888; font-size: 14px; padding: 8px 16px;
-            border-radius: 4px; transition: all 0.2s ease; font-weight: 500;
+        .nav-brand h1 {
+            margin: 0;
+            font-size: 18px;
         }
-        .nav-item:hover { color: #fff; background-color: #222; }
-        .nav-item.active { color: #fff; background-color: #333; border: 1px solid #444; }
 
-        /* --- HERO --- */
+        .text-green-500 {
+            color: #81c784;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background-color: #222;
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background-color: #333;
+            border: 1px solid #444;
+        }
+
+        /* HERO */
         .hero {
             height: 85vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
-            padding: 20px; position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #2a2a2a 0, #000 100%);
+            padding: 20px;
+            position: relative;
         }
+
         .hero h1 {
-            font-size: 4rem; margin: 0;
+            font-size: 4rem;
+            margin: 0;
             background: linear-gradient(90deg, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: fadeUp 1s ease-out forwards;
         }
+
         .hero p {
-            font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin-top: 20px;
-            opacity: 0; animation: fadeUp 1s ease-out 0.3s forwards;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.3s forwards;
         }
+
         .cta-button {
-            margin-top: 40px; padding: 15px 40px; background: var(--primary); color: #000;
-            font-weight: 700; border-radius: 30px; text-decoration: none;
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+            border-radius: 30px;
+            text-decoration: none;
             transition: transform 0.3s, box-shadow 0.3s;
-            opacity: 0; animation: fadeUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.6s forwards;
         }
-        .cta-button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4); }
 
-        /* --- SECTIONS --- */
-        .pitch-section { padding: 100px 10%; min-height: 60vh; display: flex; align-items: center; gap: 60px; }
-        .pitch-section.alt { flex-direction: row-reverse; background: #161616; }
-        
-        .content-box { flex: 1; opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
-        .visual-box { flex: 1; display: flex; justify-content: center; opacity: 0; transform: scale(0.9); transition: 0.8s ease; }
-        
-        .visible .content-box { opacity: 1; transform: translateY(0); }
-        .visible .visual-box { opacity: 1; transform: scale(1); }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+        }
 
-        .section-tag { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
-        .section-title { font-size: 2.5rem; font-weight: 700; margin: 10px 0 20px; line-height: 1.2; }
-        
+        /* SECTIONS */
+        .pitch-section {
+            padding: 100px 10%;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .pitch-section.alt {
+            flex-direction: row-reverse;
+            background: #161616;
+        }
+
+        .content-box {
+            flex: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease;
+        }
+
+        .visual-box {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: 0.8s ease;
+        }
+
+        .visible .content-box {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .visible .visual-box {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .section-tag {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0 20px;
+            line-height: 1.2;
+        }
+
         /* FEATURE CARDS */
         .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
-            padding: 80px 10%; background: #121212;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 80px 10%;
+            background: #121212;
         }
+
         .feature-card {
-            background: #1e1e1e; padding: 30px; border-radius: 12px; border: 1px solid #333;
-            transition: transform 0.3s; text-align: center;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+            text-align: center;
         }
-        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-        .feature-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
-        .feature-head { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-        .feature-desc { font-size: 0.9rem; color: #aaa; line-height: 1.6; }
 
-        /* --- ANIMATIONS --- */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
 
-        /* --- STATS BAR --- */
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-head {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* STATS BAR */
         .impact-bar {
-            display: flex; justify-content: space-around; padding: 60px 10%;
-            background: linear-gradient(90deg, #1e1e1e, #252525); border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 10%;
+            background: linear-gradient(90deg, #1e1e1e, #252525);
+            border-top: 1px solid #333;
         }
-        .impact-item { text-align: center; }
-        .impact-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; }
-        .impact-label { color: #aaa; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
 
+        .impact-item {
+            text-align: center;
+        }
+
+        .impact-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .impact-label {
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        @media (max-width: 900px) {
+
+            .pitch-section,
+            .pitch-section.alt {
+                flex-direction: column;
+                padding: 80px 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero {
+                padding-top: 80px;
+            }
+        }
+
+                .top-nav {
+            position: fixed; /* Sticks to the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #000000; /* Slightly darker than page bg for contrast */
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000; /* Ensures it stays on top of maps/panels */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background-color: #222;
+        }
+
+        /* Style for the currently selected page */
+        .nav-item.active {
+            color: #fff;
+            background-color: #333; /* Or your brand color like #008000 (Green) */
+            border: 1px solid #444;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="top-nav">
         <div class="nav-brand"><h1 class="text-xl font-bold text-white tracking-widest">ECO<span class="text-green-500">MIND</span></h1></div> <nav class="nav-links">
             <a href="/" class="nav-item">Geospatial Data</a>
-            <a href="/psychometric" class="nav-item active">Psychometric Data</a>
+            <a href="/psychometric" class="nav-item">Psychometric Data</a>
             <a href="/insights" class="nav-item">Insights</a>
-            <a href="/leaderboard" class="nav-item">Leaderboard</a>
+            <a href="/leaderboard" class="nav-item">Leaderboard</a>            
+            <a href="/prod_pitch" class="nav-item active">Product Pitch</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Ecomind</h1>
-        <p>The first AI-driven "Green Audit" platform for Indian Educational Campuses.<br>We turn environmental data into student well-being.</p>
-        <a href="#problem" class="cta-button">Explore The Vision</a>
+        <h1>GreenScore App</h1>
+        <p>A wellbeing platform that connects campus ecology to student mental health — using satellite data, campus
+            maps, and smart routing to turn greenery into everyday relief.</p>
+        <a href="#problem" class="cta-button">Discover the Need</a>
     </section>
 
     <section id="problem" class="pitch-section scroll-reveal">
         <div class="content-box">
-            <span class="section-tag">The Problem</span>
-            <h2 class="section-title">Campuses are Growing Grey, not Green.</h2>
+            <span class="section-tag">THE PROBLEM</span>
+            <h2 class="section-title">Students Miss Out on the Green Around Them</h2>
             <p style="color: #aaa; line-height: 1.8;">
-                Rapid urbanization has turned educational campuses into concrete jungles. Administrators track electricity and water, but 
-                <strong>no one tracks the "Psychological Green Score"</strong>.
+                On many campuses, students spend most of their day inside concrete blocks while the most soothing green
+                pockets stay hidden or hard to reach.
             </p>
             <ul style="color: #ccc; margin-top: 20px; line-height: 2;">
-                <li>❌ <strong>Invisible Impact:</strong> Colleges don't know <em>where</em> stress hotspots exist.</li>
-                <li>❌ <strong>Wasted Resources:</strong> Greenery is planted for aesthetics, not mental health.</li>
-                <li>❌ <strong>Data Gap:</strong> No correlation exists between satellite data and student mood.</li>
+                <li>❌ <strong>No spatial intelligence:</strong> Campuses rarely have an objective GreenScore map that
+                    shows how green, cool, or polluted each path and corner is.</li>
+                <li>❌ <strong>Scattered data:</strong> Environment metrics and wellbeing surveys sit in separate
+                    dashboards, with no simple “where should I walk now?” answer.</li>
+                <li>❌ <strong>No mood-in-context loop:</strong> Students cannot tell the system how they feel and get
+                    routes or spots that truly match their current state.</li>
             </ul>
+            <p style="color:#888; margin-top:15px;">
+                At the same time, satellite indices, air-quality data, and campus surveys already tell us where trees,
+                heat, and stress cluster — they just are not yet powering daily student journeys.
+            </p>
         </div>
         <div class="visual-box">
-            <div style="width: 100%; height: 300px; background: #222; border: 1px dashed #555; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
-                <span style="font-size: 4rem;">📉</span>
+            <div
+                style="width:100%;max-width:360px;height:320px;background:#222;border:1px dashed #555;border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                <span style="font-size:3rem;margin-bottom:10px;">📊</span>
+                <p style="color:var(--primary);font-weight:600;">Green spaces feel good — but students do not always
+                    know where to find them.</p>
+                <p style="color:var(--text-muted);font-size:0.8rem;text-align:center;">
+                    When greenery, heat, and built-up areas are mapped properly, we can gently shift students from hot,
+                    noisy shortcuts to calmer, tree-lined routes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="pitch-section alt scroll-reveal">
+        <div class="content-box">
+            <span class="section-tag">OUR SOLUTION</span>
+            <h2 class="section-title">The GreenScore App + EcoMind Dashboard</h2>
+            <p style="color: #aaa; line-height: 1.8;">
+                GreenScore blends campus maps, satellite indices, micro-climate, and simple student check-ins into a
+                living GreenScore surface that adapts to each campus and student.
+            </p>
+            <p style="color: #fff; border-left: 4px solid var(--primary); padding-left: 15px; margin-top: 20px;">
+                “We don’t just show green spots — we route students through them, uncover hidden oases, and track how
+                greener paths gently ease stress and improve focus over time.”
+            </p>
+        </div>
+        <div class="visual-box">
+            <div
+                style="width:100%;max-width:380px;height:320px;background:#222;border:1px solid var(--primary);border-radius:16px;box-shadow:0 0 20px rgba(76,175,80,0.25);padding:20px;display:flex;flex-direction:column;gap:16px;">
+                <p style="font-size:0.9rem;color:#fff;margin:0;"><strong>Campus Green Layers</strong></p>
+                <p style="font-size:0.8rem;color:#aaa;margin:0;">
+                    • Tree cover and shade<br>
+                    • Heat build-up along pathways<br>
+                    • Built-up footprint and hardscapes<br>
+                    • Basic air-quality and pollution clues<br>
+                    • Student feelings and time spent in green vs. concrete
+                </p>
+                <div style="margin-top:auto;font-size:0.75rem;color:#8bc34a;">
+                    These layers come together as one simple GreenScore for each corner of campus.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-grid scroll-reveal">
+        <div class="feature-card">
+            <span class="feature-icon">🛰️</span>
+            <div class="feature-head">Campus GreenScore Map</div>
+            <div class="feature-desc">
+                Turns raw satellite and sensor data into a clear GreenScore heatmap for paths, courtyards, lawns, and
+                building edges across each campus.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🚶</span>
+            <div class="feature-head">De-stress Routing</div>
+            <div class="feature-desc">
+                A routing feature that suggests the calmest, greenest way to walk between classes, not just the shortest
+                — adjusting to how much extra time you have.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📍</span>
+            <div class="feature-head">Oasis Finder</div>
+            <div class="feature-desc">
+                Alerts students to quieter, tree-covered pockets that are often overlooked, helping them find better
+                places to sit, breathe, and study outdoors.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🧠</span>
+            <div class="feature-head">Mood & Stress Check-ins</div>
+            <div class="feature-desc">
+                A simple check-in screen lets students share how they feel and whether they want to focus or just
+                unwind, so the app can suggest the right kind of space.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🌳</span>
+            <div class="feature-head">Vegetation Intelligence</div>
+            <div class="feature-desc">
+                Treats evergreen, deciduous, and other tree types differently, so summer shade corridors, flowering
+                avenues, and seasonal lawns each get their own role in the experience.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🏫</span>
+            <div class="feature-head">Building GreenScore (Future)</div>
+            <div class="feature-desc">
+                Rates academic buildings by how green and open they feel, helping students pick better buildings for
+                long study hours as campuses add more plants and courtyards.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🏆</span>
+            <div class="feature-head">Green Campus Tiers</div>
+            <div class="feature-desc">
+                Groups campuses into Platinum, Gold, Green, and Silver tiers based on GreenScore and wellbeing uplift,
+                with greener campuses unlocking more varied de-stress routes.
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <div class="feature-head">EcoMind Admin Dashboard</div>
+            <div class="feature-desc">
+                Gives campus planners a view of which blocks feel too concrete-heavy, which paths students avoid, and
+                where new trees or shaded walkways would help most.
             </div>
         </div>
     </section>
 
     <section class="pitch-section alt scroll-reveal">
         <div class="content-box">
-            <span class="section-tag">The Solution</span>
-            <h2 class="section-title">The "EcoMind" Dashboard</h2>
-            <p style="color: #aaa; line-height: 1.8;">
-                A unified platform that fuses <strong>Satellite Imagery (Sentinel-2)</strong> with <strong>Hyper-local Student Feedback</strong>. We create a live "Green Health Score" for every zone on campus.
+            <span class="section-tag">HOW IT WORKS</span>
+            <h2 class="section-title">From Campus Maps to Everyday Green Paths</h2>
+            <p style="color:#aaa;line-height:1.8;">
+                GreenScore starts by reading campus maps, walking routes, and building footprints, then layers on
+                satellite and sensor data to compute a simple score for every segment.
             </p>
-            <p style="color: #fff; border-left: 4px solid var(--primary); padding-left: 15px; margin-top: 20px;">
-                "We don't just tell you to plant trees. We tell you <strong>where</strong> to plant them to maximize student focus and minimize cortisol."
+            <ul style="color:#ccc;margin-top:20px;line-height:2;">
+                <li>1️⃣ <strong>Map the campus fabric:</strong> Buildings, walkways, lawns, and water bodies are
+                    stitched into a clean routing network.</li>
+                <li>2️⃣ <strong>Compute GreenScore:</strong> Each path gets a score from tree cover, shade, heat,
+                    pollution, and land-cover mix, adjusted for vegetation type.</li>
+                <li>3️⃣ <strong>Plug in the mind:</strong> Check-ins on mood, stress, and time in green vs indoors help
+                    the system learn which places actually make students feel better.</li>
+            </ul>
+            <p style="color:#888;margin-top:15px;">
+                The same engine powers both the student app and a dashboard for leaders who want to gradually turn
+                concrete-heavy corners into healthier green zones.
             </p>
         </div>
         <div class="visual-box">
-            <div style="width: 100%; height: 300px; background: #222; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);">
-                <span style="font-size: 4rem;">💻 + 🛰️</span>
+            <div
+                style="width:100%;max-width:380px;height:320px;background:#222;border-radius:16px;border:1px dashed #555;padding:18px;display:flex;flex-direction:column;">
+                <p style="font-size:0.9rem;color:#fff;margin:0 0 10px 0;"><strong>Data to Experience Flow</strong></p>
+                <ol style="font-size:0.8rem;color:#aaa;padding-left:18px;margin:0;">
+                    <li>Satellite and basic sensor layers are loaded.</li>
+                    <li>The campus network graph is built from maps.</li>
+                    <li>GreenScore is computed for edges and building cells.</li>
+                    <li>Mood and stress check-ins tune those scores over time.</li>
+                    <li>Routes and “oasis” cards appear inside the app UI.</li>
+                </ol>
             </div>
         </div>
     </section>
 
-    <section class="features-grid scroll-reveal">
-        <div class="feature-card">
-            <span class="feature-icon">🛰️</span>
-            <div class="feature-head">Geo-Spatial Audit</div>
-            <div class="feature-desc">Automated NDVI, LST, and Pollution tracking using Sentinel-2 satellite APIs. No sensors needed.</div>
+    <section class="pitch-section scroll-reveal">
+        <div class="content-box">
+            <span class="section-tag">EXPERIENCE LAYER</span>
+            <h2 class="section-title">What Students Actually See</h2>
+            <p style="color:#aaa;line-height:1.8;">
+                In the GreenScore App, the complex data is hidden behind a simple map: greener paths glow, calm spots
+                stand out, and buildings get clear hints about how study-friendly they feel.
+            </p>
+            <ul style="color:#ccc;margin-top:20px;line-height:2;">
+                <li>• A quick “How are you feeling?” slider and a “Focus / Relax” toggle lead to suggestions that match
+                    the moment.</li>
+                <li>• Between-class routing gently nudges students onto greener corridors when their schedule allows a
+                    slightly longer walk.</li>
+                <li>• Oasis cards highlight shady lawns and quiet corners when students just need a break from noise and
+                    concrete.</li>
+            </ul>
         </div>
-        <div class="feature-card">
-            <span class="feature-icon">🧠</span>
-            <div class="feature-head">Psycho-Metric Overlay</div>
-            <div class="feature-desc">Real-time heatmaps of student stress & focus levels mapped directly onto campus coordinates.</div>
-        </div>
-        <div class="feature-card">
-            <span class="feature-icon">📊</span>
-            <div class="feature-head">SustainScore™</div>
-            <div class="feature-desc">A unified 0-100 ranking metric for colleges to benchmark their "Green Well-being" status.</div>
-        </div>
-        <div class="feature-card">
-            <span class="feature-icon">💡</span>
-            <div class="feature-head">Actionable Insights</div>
-            <div class="feature-desc">AI recommendations: "Zone B has high stress & low shade. Plant vertical gardens here."</div>
+        <div class="visual-box">
+            <div
+                style="width:100%;max-width:380px;height:330px;background:#222;border:1px solid var(--primary);border-radius:12px;box-shadow:0 0 20px rgba(76,175,80,0.2);padding:20px;display:flex;flex-direction:column;align-items:center;">
+                <p style="font-size:0.9rem;color:#fff;margin:0;"><strong>Figma Mockup – De-stress Router</strong></p>
+                <div
+                    style="width:80px;height:140px;border:2px solid #555;border-radius:10px;position:relative;margin-top:10px;">
+                    <div style="position:absolute;top:10px;left:10px;width:60px;height:5px;background:#333;"></div>
+                    <div
+                        style="position:absolute;bottom:20px;left:10px;width:40px;height:40px;border-radius:50%;border:2px solid var(--primary);color:var(--primary);font-size:0.5rem;display:flex;align-items:center;justify-content:center;">
+                        NDVI Map
+                    </div>
+                    <div
+                        style="position:absolute;top:30px;left:10px;width:40px;height:80px;background:repeating-linear-gradient(45deg,#111,#111 2px,#0f0 2px,#0f0 4px);opacity:0.3;">
+                    </div>
+                </div>
+                <p style="font-size:0.7rem;color:#666;margin-top:10px;">
+                    The app clearly shows the usual fastest route and a greener alternative, so students can choose how
+                    they want to move.
+                </p>
+            </div>
         </div>
     </section>
 
     <section class="impact-bar scroll-reveal">
         <div class="impact-item">
-            <span class="impact-num">32%</span>
-            <span class="impact-label">Drop in Stress Variance</span>
+            <span class="impact-num">35%</span>
+            <span class="impact-label">Stress Reduction Potential*</span>
         </div>
         <div class="impact-item">
-            <span class="impact-num">80%</span>
-            <span class="impact-label">Focus Improvement</span>
+            <span class="impact-num">2×</span>
+            <span class="impact-label">Focus Gains in Green</span>
         </div>
         <div class="impact-item">
-            <span class="impact-num">Scalable</span>
-            <span class="impact-label">To Any Campus in India</span>
+            <span class="impact-num">Campus-wide</span>
+            <span class="impact-label">Ready to Scale</span>
         </div>
     </section>
 
-    <section class="pitch-section scroll-reveal" style="text-align: center; display: block;">
-        <span class="section-tag">The Vision</span>
-        <h2 class="section-title">From Campus to City</h2>
-        <p style="color: #aaa; max-width: 600px; margin: 0 auto 40px;">
-            Ecomind starts with colleges, but the model scales to IT Parks, Residential Townships, and Smart Cities. 
-            We are building the standard for <strong>Psychological Urban Planning</strong>.
+    <section class="pitch-section alt scroll-reveal" style="text-align:center;display:block;">
+        <span class="section-tag">VISION</span>
+        <h2 class="section-title">From Green Campuses to Green Cities</h2>
+        <p style="color:#aaa;max-width:600px;margin:0 auto 40px;">
+            GreenScore starts with students and campuses, but the same idea can guide people through tech parks,
+            corporate campuses, and neighbourhoods using nature as a quiet support system.
         </p>
-        <a href="#" class="cta-button">Partner With Us</a>
+        <p style="color:#888;max-width:600px;margin:0 auto 30px;">
+            As more academic blocks turn into greener, biophilic spaces, building-level GreenScores will help students
+            easily find the best buildings and outdoor pockets to think, work, and breathe.
+        </p>
+        <a href="#features" class="cta-button">Join the Green Revolution</a>
     </section>
 
-    <footer style="padding: 40px; text-align: center; border-top: 1px solid #333; color: #666;">
-        <p>&copy; 2026 Ecomind Project. Helping campuses breathe.</p>
+    <footer>
+        <p>&copy; 2026 EcoMind &amp; GreenScore Alliance — Data-Driven Green Wellbeing</p>
     </footer>
 
     <script>
@@ -230,11 +612,11 @@
                 }
             });
         }, { threshold: 0.2 });
-
         document.querySelectorAll('.scroll-reveal').forEach(section => {
             observer.observe(section);
         });
     </script>
 
 </body>
+
 </html>
