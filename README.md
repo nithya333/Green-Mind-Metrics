@@ -33,11 +33,11 @@ As outlined in the Project Report:
 
 ## Key Features
 
-- ** Interactive Dashboard:** A split-pane web application allowing side-by-side comparison of up to 5 campuses.
-- ** 15-Band Satellite Analysis:** Real-time rendering of NDVI, NDBI, LST (Land Surface Temp), and LULC (Land Use) masks.
-- ** Psychometric Integration:** Correlates environmental data with survey metrics like _Perceived Restorativeness_, _Acute Stress_, and _Mood_.
-- ** Dynamic Graphing:** On-the-fly chart generation using Chart.js to compare specific metrics (e.g., _Concrete % vs. Stress Level_).
-- ** Heatmap Generation:** Python backend generates thermal and vegetation heatmaps from raw TIF files on demand.
+- **Interactive Dashboard:** A split-pane web application allowing side-by-side comparison of up to 5 campuses.
+- **15-Band Satellite Analysis:** Real-time rendering of NDVI, NDBI, LST (Land Surface Temp), and LULC (Land Use) masks.
+- **Psychometric Integration:** Correlates environmental data with survey metrics like _Perceived Restorativeness_, _Acute Stress_, and _Mood_.
+- **Dynamic Graphing:** On-the-fly chart generation using Chart.js to compare specific metrics (e.g., _Concrete % vs. Stress Level_).
+- **Heatmap Generation:** Python backend generates thermal and vegetation heatmaps from raw TIF files on demand.
 
 
 ## Data Sources
@@ -88,6 +88,8 @@ As outlined in the Project Report:
 * **Temperature Correlation:** Campuses with >40% concrete cover show a +2°C higher Land Surface Temperature (LST), correlating with lower mood scores.
 
 ## The Dashboard
+
+The dashboard is hosted in https://green-mind-metrics.onrender.com
 
 * **Split-Pane Comparison:** Compare up to 5 colleges side-by-side with synchronized scrolling.
 * **Dynamic Graphing:** Select specific metrics (e.g., *NDVI vs. Stress*) to generate instant bar charts.
