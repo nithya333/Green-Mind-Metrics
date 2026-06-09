@@ -64,6 +64,8 @@ As outlined in the Project Report:
 
 ## Data Pipeline
 
+<img width="2019" alt="Block_Diag" src="https://github.com/user-attachments/assets/f7b2edd2-c481-4066-a032-3c9248c08a27" />
+
 1. **Ingestion:**
 
 - **Geospatial:** Sentinel-2 Level-2A imagery fetched via Sentinel Hub.
@@ -97,3 +99,10 @@ The dashboard is hosted in https://green-mind-metrics.onrender.com
 * **Calculated Indices:**
 * `Green Score`: Weighted average of Vegetation density and Canopy health.
 * `Mind Score`: Inverse function of Stress levels and Mood reports.
+
+
+Dashboard sample images:
+<img width="1020" alt="Geospatial-data" src="https://github.com/user-attachments/assets/4ff4144b-6acf-4035-9342-2a4e05ca199c" />
+<img width="1920" height="9992" alt="psychometric-data" src="https://github.com/user-attachments/assets/97ae15a0-974e-441f-80f3-1fd241d5d1b0" />
+
+
